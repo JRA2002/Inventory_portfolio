@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 
 # Create your models here.
 UNITS = {
@@ -24,7 +25,19 @@ class Product(models.Model):
 
     def __str__(self) :
         return self.name
+    def quantity_left(self):
+        return self.quantity - self.purchase_set.aggregate(Sum('quantity'))['quantity__sum']
     
-   
+class Purchase(models.Model):
+    name= models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+    date = models.DateField(auto_now_add=True)
+
+    def __str__(self) :
+        return str(self.name)
+    def total_amount(self):
+        return self.quantity * self.name.price
+    
+    
     
     

@@ -6,6 +6,11 @@
     <h2>{{ product.name }}</h2>
     <p>{{ product.price }}</p>
     <p>{{ product.quantity }}</p>
+    {% if product.quantity_left <= 34%}
+        <p style="color:red">{{ product.quantity_left }}..Low Stock</p>
+    {% else %}
+        <p>{{ product.quantity_left }}</p>
+    {% endif %}
     <p>{{ product.unit }}</p>
     <a href="{% url 'company_details' product.company.id %}">{{ product.company }}</a>
     <p><a href="{% url 'update_product' product.id %}">Update</a></p>
