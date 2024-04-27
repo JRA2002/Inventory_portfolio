@@ -7,9 +7,12 @@
     <p>{{ product.price }}</p>
     <p>{{ product.quantity }}</p>
     {% if product.quantity_left <= 34%}
-        <p style="color:red">{{ product.quantity_left }}..Low Stock</p>
+        <p style="color:green">{{ product.quantity_left }}..Low Stock</p>
     {% else %}
         <p>{{ product.quantity_left }}</p>
+    {% endif %}
+    {% if product.state == False %}
+        <p style="color:red">{{ product.due_date}} -- Expired</p>
     {% endif %}
     <p>{{ product.unit }}</p>
     <a href="{% url 'company_details' product.company.id %}">{{ product.company }}</a>

@@ -22,11 +22,14 @@ class Product(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     unit = models.CharField(max_length=2, default='Kg', choices=UNITS)
     image = models.ImageField(upload_to="images", null=True, blank=True)
+    due_date = models.DateField(default=None, null=True, blank=True)
+    state = models.BooleanField(default=True)
 
     def __str__(self) :
         return self.name
     def quantity_left(self):
         return self.quantity - self.purchase_set.aggregate(Sum('quantity'))['quantity__sum']
+    
     
 class Purchase(models.Model):
     name= models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -35,8 +38,13 @@ class Purchase(models.Model):
 
     def __str__(self) :
         return str(self.name)
+    
     def total_amount(self):
         return self.quantity * self.name.price
+    
+    
+        
+    
     
     
     

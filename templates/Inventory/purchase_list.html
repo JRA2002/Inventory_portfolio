@@ -12,5 +12,6 @@
     <p><a href="{% url 'update_purchase' purchase.id %}">Update</a></p>
     <p><a href="{% url 'delete_purchase' purchase.id %}">Delete</a></p>
 {% endfor %}
+
 <a href="{% url 'create_purchase' %}">Create</a>
 {% endblock %}
