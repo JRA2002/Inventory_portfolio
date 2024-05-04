@@ -6,6 +6,7 @@ from .models import Product,Company,Purchase
 from .forms import ProductForm,PurchaseForm
 from django.db.models import Sum
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import request,HttpRequest,JsonResponse
 
 
 
@@ -61,6 +62,15 @@ class PurchaseUpdateView(LoginRequiredMixin,UpdateView):
     template_name = 'Inventory/update_purchase.html'
     form_class = PurchaseForm
     success_url = reverse_lazy('purchase_list')
+
+def practice_request(request):
+    context = {}
+    context['home1'] = request.get_full_path()
+    context['reponse'] = JsonResponse({"age":"30"})
+    return render(request,'Inventory/home1.html',context)
+
+class AboutView(TemplateView):
+    template_name = 'Inventory/about.html'
 
     
 
