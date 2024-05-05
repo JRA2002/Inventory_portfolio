@@ -1,24 +1,48 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Product List</h1>
-{% for product in products %}
-    <h2>{{ product.name }}</h2>
-    <p>{{ product.price }}</p>
-    <p>{{ product.quantity }}</p>
-    {% if product.quantity_left <= 34%}
-        <p style="color:green">{{ product.quantity_left }}..Low Stock</p>
-    {% else %}
-        <p>{{ product.quantity_left }}</p>
-    {% endif %}
-    {% if product.state == False %}
-        <p style="color:red">{{ product.due_date}} -- Expired</p>
-    {% endif %}
-    <p>{{ product.unit }}</p>
-    <a href="{% url 'company_details' product.company.id %}">{{ product.company }}</a>
-    <p><a href="{% url 'update_product' product.id %}">Update</a></p>
-    <p><a href="{% url 'delete_product' product.id %}">Delete</a></p>
-{% endfor %}
-<a href="{% url 'create_product' %}">Create</a>
+<h1>{{stock}}</h1>
+<div class="container">
+    <h1 class="text-center">PRODUCT LIST</h1>
+    <div class="text-end">
+        <a href="{% url 'create_product' %}">Create</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Company</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for product in object_list %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+                {% if product.stock <= 15 %}
+                <td style="color:red">{{ product.stock }}</td>
+                {% else %}
+                <td style="color:green">{{ product.stock }}</td>
+                {% endif %}
+                <td>{{ product.company }}</td>
+                {% if product.state == False %}
+                <td style="color:red">{{ product.due_date}} -- EXPIRED</td>
+                {% else %}
+                <td>{{product.due_date}} -- OK</td>
+                {% endif %}
+                   
+            </tr>
+        {% endfor %}
+         
+        </tbody>
+      </table>
+
+</div>
+
 {% endblock %}
 

@@ -14,7 +14,17 @@ from django.http import request,HttpRequest,JsonResponse
 class ProductListView(LoginRequiredMixin,ListView):
     model = Product
     template_name = 'Inventory/product_list.html'
-    context_object_name = 'products'
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+
+        for purchase in Purchase.objects.all():
+            for product in purchase.name.all():
+                stock = product.quantity - purchase.quantity
+                context['stock']= stock
+        return context
 
 class HomeView(TemplateView):
     template_name = 'Inventory/home.html'
