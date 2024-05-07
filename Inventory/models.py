@@ -42,6 +42,8 @@ class Purchase(models.Model):
         return self.quantity * self.name.price
     
     
+
+    
         
     
     

@@ -2,12 +2,16 @@
 
 {% block content %}
 <h1>{{stock}}</h1>
+<h1>{{object_list}}</h1>
+{% for product in object_list %}
+<h1>{{product.total_quantity}}</h1>
+{% endfor %}
 <div class="container">
     <h1 class="text-center">PRODUCT LIST</h1>
     <div class="text-end">
         <a href="{% url 'create_product' %}">Create</a>
     </div>
-    <table class="table table-bordered">
+    <table class="table table-bordered text-center">
         <thead>
           <tr>
             <th scope="col">Name</th>
@@ -16,25 +20,23 @@
             <th scope="col">Stock</th>
             <th scope="col">Company</th>
             <th scope="col">Status</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
         {% for product in object_list %}
             <tr>
-                <td>{{ product.name }}</td>
+                <td><a href="{% url 'update_product' product.name %}">{{ product.name }}</a></td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.quantity }}</td>
-                {% if product.stock <= 15 %}
-                <td style="color:red">{{ product.stock }}</td>
-                {% else %}
-                <td style="color:green">{{ product.stock }}</td>
-                {% endif %}
+                <td>0</td>
                 <td>{{ product.company }}</td>
                 {% if product.state == False %}
                 <td style="color:red">{{ product.due_date}} -- EXPIRED</td>
                 {% else %}
                 <td>{{product.due_date}} -- OK</td>
                 {% endif %}
+                <td><a href="{% url 'delete_product' product.name %}">❌</a></td>
                    
             </tr>
         {% endfor %}
