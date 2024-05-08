@@ -1,11 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{stock}}</h1>
 <h1>{{object_list}}</h1>
-{% for product in object_list %}
-<h1>{{product.total_quantity}}</h1>
-{% endfor %}
+
 <div class="container">
     <h1 class="text-center">PRODUCT LIST</h1>
     <div class="text-end">

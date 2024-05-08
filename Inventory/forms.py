@@ -4,9 +4,10 @@ from django import forms
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['name','price','quantity','company','unit','image','due_date']
 
 class PurchaseForm(forms.ModelForm):
     class Meta:
         model = Purchase
         fields = '__all__'
+        

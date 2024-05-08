@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>Are you sure to delete {{object.name}} ? </h1>
+<h2>{{product}}</h2>
 <form method="post" >
     {% csrf_token %}
     {{ form.as_p }}

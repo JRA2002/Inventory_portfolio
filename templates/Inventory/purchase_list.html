@@ -3,6 +3,7 @@
 {% block content%}
 <div class="container">
     <h1>Purchase List</h1>
+    
 {% for purchase in purchases %}
     <h2>{{ purchase.name.name }}</h2>
     <p>{{ purchase.quantity }}</p>
@@ -10,8 +11,8 @@
     <p>{{ purchase.date }}</p>
     <p>{{ purchase.total_amount }}
 
-    <p><a href="{% url 'update_purchase' purchase.name_name %}">Update</a></p>
-    <p><a href="{% url 'delete_purchase' purchase.name_name %}">Delete</a></p>
+    <p><a href="{% url 'update_purchase' purchase.id %}">Update</a></p>
+    <p><a href="{% url 'delete_purchase' purchase.id %}">Delete</a></p>
 {% endfor %}
 
 <a href="{% url 'create_purchase' %}">Create</a>

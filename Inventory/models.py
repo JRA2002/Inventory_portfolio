@@ -9,7 +9,7 @@ UNITS = {
     ('Un', 'Units'),
 }
 class Company(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(unique=True,max_length=20)
     direction = models.CharField(max_length=20)
     description = models.TextField()
     def __str__(self) :
@@ -17,8 +17,8 @@ class Company(models.Model):
     
 class Product(models.Model):
     name = models.CharField(max_length=20)
-    price = models.FloatField(default=0.0)
-    quantity = models.IntegerField(default=0)
+    price = models.FloatField(default=0.0,max_length=5)
+    quantity = models.PositiveIntegerField(default=1)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     unit = models.CharField(max_length=2, default='Kg', choices=UNITS)
     image = models.ImageField(upload_to="images", null=True, blank=True)
@@ -32,7 +32,7 @@ class Product(models.Model):
     
 class Purchase(models.Model):
     name = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0)
+    quantity = models.PositiveIntegerField(default=0)
     date = models.DateField(auto_now_add=True)
 
     def __str__(self) :

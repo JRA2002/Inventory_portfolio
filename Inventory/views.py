@@ -74,6 +74,7 @@ class PurchaseListView(LoginRequiredMixin,ListView):
     template_name = 'Inventory/purchase_list.html'
     context_object_name = 'purchases'
 
+
 class CreatePurchaseView(LoginRequiredMixin,CreateView):
     model = Purchase
     template_name = 'Inventory/create_purchase.html'
@@ -84,11 +85,7 @@ class DeletePurchaseView(LoginRequiredMixin,DeleteView):
     model = Purchase
     template_name = 'Inventory/delete_purchase.html'
     success_url = reverse_lazy('purchase_list')
-
-    def get_object(self, queryset: None):
-        name = self.kwargs['name']
-        purchase = get_object_or_404(Purchase, name=name)
-        return purchase
+        
 
 class PurchaseUpdateView(LoginRequiredMixin,UpdateView):
     model = Purchase
@@ -96,11 +93,8 @@ class PurchaseUpdateView(LoginRequiredMixin,UpdateView):
     form_class = PurchaseForm
     success_url = reverse_lazy('purchase_list')
 
-    def get_object(self, queryset: None):
-        name = self.kwargs['name']
-        purchase = get_object_or_404(Purchase , name__name=name)
 
-        return purchase
+
 
 def practice_request(request):
     context = {}
